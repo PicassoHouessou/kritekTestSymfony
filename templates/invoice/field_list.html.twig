@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .main{
+            margin-top: 100px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+<div class="container main ">
+    <div class="row ">
+        <div class="col-md-12">
+            <h2 class="mb-5 fs-2">The fields for invoice <span class="text-dark">{{ invoice.number }}</span></h2>
+            {% if invoiceLines|length > 0 %}
+            <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">VAT</th>
+                    <th scope="col">Total with VAT</th>
+                    <th scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoiceLine in invoiceLines %}
+
+                    <tr>
+                        <td>{{ invoiceLine.quantity }}</td>
+                        <td>{{ invoiceLine.amount }}</td>
+                        <td >{{ invoiceLine.vat }}</td>
+                        <td>{{ invoiceLine.total }}</td>
+                        <td>{{ invoiceLine.description }}</td>
+
+                    </tr>
+                {% endfor%}
+                </tbody>
+
+            </table>
+            {% else %}
+                <p> No fields for the invoice  {{ invoice.number }}. You can add fields <a href="{{ absolute_url(path('app_invoice_line_create')) }}">here</a>  </p>
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
